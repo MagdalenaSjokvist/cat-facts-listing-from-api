@@ -9,7 +9,7 @@ import { Link } from "react-router-dom"
 // 	)
 // }
 
-export default function FactCard({ id, key, text, upvotes }) {
+export default function FactCard({ id, text, upvotes }) {
 	return (
 		<div className="card m-4 p-2">
 			<div className="card-body p-2">

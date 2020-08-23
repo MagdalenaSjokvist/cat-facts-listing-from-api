@@ -11,9 +11,15 @@ export default function FactList() {
 			.then((result) => {
 				console.log(result) //Skriver ut objektet "all" som omsluter alla fact-poster
 				console.log(result.all) //Skriver ut alla arrayer i objektet "all", dvs. alla fact-poster
-				setFactList(result.all)
+
+				let allFacts = result.all
+				// console.log(allFacts)
+
+				setFactList(allFacts)
 			})
 	}
+
+	// function getAuthorName() {}
 
 	useEffect(() => {
 		fetchFactList()
@@ -27,15 +33,18 @@ export default function FactList() {
 
 			<div className="row">
 				{factList.map((fact, index) => {
-					return (
-						<FactCard
-							key={index}
-							id={index}
-							text={fact.text}
-							// name={fact.user.name.first}
-							upvotes={fact.upvotes}
-						/>
-					)
+					if (index < 20) {
+						return (
+							<FactCard
+								key={index}
+								id={index}
+								// pageId={fact._id}
+								text={fact.text.substring(0, 20)}
+								// name={fact.user.name.first}
+								upvotes={fact.upvotes}
+							/>
+						)
+					}
 				})}
 			</div>
 		</div>
