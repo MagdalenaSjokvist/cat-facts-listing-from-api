@@ -10,7 +10,7 @@ export default function LayoutSimple({ children }) {
 					Home
 				</Link>
 				<Link className="btn btn-info btn-lg mx-2" to="/facts">
-					See all the Cat Facts
+					List of cat facts
 				</Link>
 			</div>
 			{children}

@@ -9,17 +9,18 @@ export default function FactList() {
 		fetch("https://cat-fact.herokuapp.com/facts")
 			.then((res) => res.json())
 			.then((result) => {
-				console.log(result) //Skriver ut objektet "all" som omsluter alla fact-poster
-				console.log(result.all) //Skriver ut alla arrayer i objektet "all", dvs. alla fact-poster
-
 				let allFacts = result.all
-				// console.log(allFacts)
+				// console.log(allFacts) //Skriver ut alla arrayer i objektet "all", dvs. alla fact-poster
 
-				setFactList(allFacts)
+				//Spara ner 20 random facts (items) från arrayen, i variabeln factList
+				let factList = allFacts
+					.sort(() => Math.random() - Math.random())
+					.slice(0, 20)
+
+				console.log(factList)
+				setFactList(factList)
 			})
 	}
-
-	// function getAuthorName() {}
 
 	useEffect(() => {
 		fetchFactList()
@@ -28,30 +29,42 @@ export default function FactList() {
 
 	return (
 		<div>
-			<h2>Card List</h2>
-			<button onClick={fetchFactList}>Load Facts</button>
+			<button
+				className="btn btn-success btn-lg mt-5 mb-2"
+				onClick={fetchFactList}
+			>
+				Show me some facts
+			</button>
 
-			<div className="row">
+			<div className="row justify-content-center">
 				{factList.map((fact, index) => {
-					if (index < 20) {
+					if (fact.user) {
 						return (
 							<FactCard
 								key={index}
 								id={index}
 								// pageId={fact._id}
 								text={fact.text.substring(0, 20)}
-								// name={fact.user.name.first}
+								name={fact.user.name.first + " " + fact.user.name.last}
 								upvotes={fact.upvotes}
 							/>
 						)
+					} else {
+						return (
+							<FactCard
+								key={index}
+								id={index}
+								// pageId={fact._id}
+								text={fact.text.substring(0, 20)}
+								name={"Unknown"}
+								upvotes={fact.upvotes}
+							/>
+						)
+					}
+					{
 					}
 				})}
 			</div>
 		</div>
 	)
-	// return (
-	// 	<div>
-	// 		<p>FactList</p>
-	// 	</div>
-	// )
 }
